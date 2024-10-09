@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const styles = {
   color: "white",
-  marginLeft: "1rem",
+  margin: "0.5rem",
   textDecoration: "none",
 };
 
@@ -11,14 +11,14 @@ const Header = () => {
   return (
     <AppBar position="static">
       <Toolbar>
-        <Typography variant="h5" textTransform={"uppercase"} mr={"auto"}>
+        <Typography variant="h5" mr={"auto"} textTransform={"uppercase"}>
           Learndo.
         </Typography>
         <Link style={styles} to={"/"}>
-          Home{" "}
+          Home
         </Link>
         <Link style={styles} to={"/login"}>
-          Login{" "}
+          Login
         </Link>
       </Toolbar>
     </AppBar>

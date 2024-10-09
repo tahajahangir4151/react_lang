@@ -11,7 +11,7 @@ const languages = [
     code: "hi",
   },
   {
-    name: "Espanish",
+    name: "Spanish",
     code: "es",
   },
   {
@@ -21,11 +21,10 @@ const languages = [
 ];
 
 const Home = () => {
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
-
-  const langClickHandler = (language: string): void => {
-    navigate(`/learn?language=${language}`)
+  const languageSelectHandler = (language: string): void => {
+    navigate(`/learn?language=${language}`);
   };
 
   return (
@@ -33,19 +32,25 @@ const Home = () => {
       <Typography variant="h3" p={"2rem"} textAlign={"center"}>
         Welcome, Begin your journey of learning.
       </Typography>
+
       <Stack
         direction={"row"}
         spacing={"2rem"}
         p={"2rem"}
-        justifyContent={"center"}
         alignItems={"center"}
+        justifyContent={"center"}
       >
         {languages.map((i) => (
-          <Button variant="contained" onClick={() => langClickHandler(i.code)} key={i.code}>
+          <Button
+            onClick={() => languageSelectHandler(i.code)}
+            key={i.code}
+            variant="contained"
+          >
             {i.name}
           </Button>
         ))}
       </Stack>
+
       <Typography textAlign={"center"}>
         Choose one language from above
       </Typography>
