@@ -86,35 +86,31 @@ export const countMatchingElements = (
   return matchedCount;
 };
 
-export const fetchAudio = async (
-  text: string,
-  language: LangType
-): Promise<string> => {
+// Function to handle text-to-speech using Web Speech API
+export const fetchAudio = (text: string, language: LangType): void => {
+  const synth = window.speechSynthesis;
+
   
-  const encodedParams = new URLSearchParams({
-    src: text,
-    r: "0",
-    c: "mp3",
-    f: "8khz_8bit_mono",
-    b64: "true",
-  });
+  const languageMap: Record<string, string> = {
+    'ja': 'ja-JP',
+    'es': 'es-ES',
+    'fr': 'fr-FR',
+    'hi': 'hi-IN',
+    'en': 'en-US', 
+  };
 
-  if (language === "ja") encodedParams.set("hl", "ja-jp");
-  else if (language === "es") encodedParams.set("hl", "es-es");
-  else if (language === "fr") encodedParams.set("hl", "fr-fr");
-  else encodedParams.set("hl", "hi-in");
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = languageMap[language] || 'en-US';
 
-  const { data }: { data: string } = await axios.post(
-    "https://cloudlabs-text-to-speech.p.rapidapi.com/synthesize",
-    encodedParams,
-    {
-      // params: { key },
-      headers: {
-        'x-rapidapi-key': '4af9f7d618msh3183ed1402bd3e5p11e1c6jsn3e0427b9e6fa',
-        'x-rapidapi-host': 'cloudlabs-text-to-speech.p.rapidapi.com'
-      },
-    }
-  );
+  // Start speaking the text
+  synth.speak(utterance);
 
-  return data;
+  // Optional: Add event listeners if you want to track when the speech starts/ends
+  utterance.onend = () => {
+    console.log('Speech has finished');
+  };
+
+  utterance.onerror = (event) => {
+    console.error('Speech synthesis error:', event);
+  };
 };
