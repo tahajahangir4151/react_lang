@@ -18,6 +18,10 @@ const languages = [
     name: "French",
     code: "fr",
   },
+  {
+    name: "Turkish",
+    code: "tr",
+  },
 ];
 
 const Home = () => {
